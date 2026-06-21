@@ -1,6 +1,0 @@
-apiVersion: v2
-name: ai-service
-description: Helm chart for OrganiStation AI Service
-type: application
-version: 0.1.0
-appVersion: "v3.1.0"
