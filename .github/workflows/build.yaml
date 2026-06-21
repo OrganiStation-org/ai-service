@@ -1,0 +1,19 @@
+name: Microservice CI Pipeline
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  ci:
+    permissions:
+      contents: read
+      packages: write
+    uses: OrganiStation-org/shared-workflows/.github/workflows/reusable-ci.yaml@develop
+    with:
+      image_name: ai-service
+      sonar_project_key: organistation-ai
+      skip_linting: true
+    secrets: inherit

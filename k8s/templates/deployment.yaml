@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.name }}
+  namespace: organistation-ns
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: {{ .Values.rollingUpdate.type }}
+    rollingUpdate:
+      maxUnavailable: {{ .Values.rollingUpdate.maxUnavailable }}
+      maxSurge: {{ .Values.rollingUpdate.maxSurge }}
+  selector:
+    matchLabels:
+      app: {{ .Values.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.name }}
+    spec:
+      containers:
+      - name: {{ .Values.name }}
+        image: "{{ .Values.image.name }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.service.targetPort }}
+        envFrom:
+        - configMapRef:
+            name: {{ .Values.name }}-config
+        - secretRef:
+            name: {{ .Values.name }}-secret
+        resources:
+{{ toYaml .Values.resources | indent 10 }}
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1001
+          allowPrivilegeEscalation: false
+        readinessProbe:
+          httpGet:
+            path: {{ .Values.service.healthPath | default "/health" }}
+            port: {{ .Values.service.targetPort }}
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.service.healthPath | default "/health" }}
+            port: {{ .Values.service.targetPort }}
+          initialDelaySeconds: 15
+          periodSeconds: 20
