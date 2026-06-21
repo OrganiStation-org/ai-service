@@ -11,7 +11,7 @@ jobs:
     permissions:
       contents: read
       packages: write
-    uses: OrganiStation-org/shared-workflows/.github/workflows/reusable-ci.yaml@develop
+    uses: OrganiStation-org/shared-workflows/.github/workflows/reusable-ci.yaml@main
     with:
       image_name: ai-service
       sonar_project_key: organistation-ai
