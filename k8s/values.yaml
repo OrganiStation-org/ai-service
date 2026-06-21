@@ -1,0 +1,21 @@
+name: ai
+replicaCount: 1
+rollingUpdate:
+  type: RollingUpdate
+  maxUnavailable: 25%
+  maxSurge: 25%
+image:
+  name: maheshnandi/organistation-ai
+  tag: v1.0.0
+  pullPolicy: IfNotPresent
+service:
+  port: 8000
+  targetPort: 8000
+  healthPath: /api/health
+resources:
+  limits:
+    cpu: 1000m
+    memory: 2Gi
+  requests:
+    cpu: 500m
+    memory: 1Gi
