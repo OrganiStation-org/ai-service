@@ -1,4 +1,4 @@
-name: AI Service CI Pipeline (ai)
+name: AI Service CI Pipeline
 
 on:
   push:
@@ -18,5 +18,5 @@ jobs:
     with:
       image_name: ai-service
       sonar_project_key: organistation-ai
-      sonar_org: "OrganiStation-org"
+      sonar_org: "organistation-org"
     secrets: inherit
