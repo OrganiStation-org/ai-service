@@ -39,10 +39,18 @@ class RAGPipeline:
         
         if self.connection_string:
             try:
-                self.blob_service_client = BlobServiceClient.from_connection_string(self.connection_string)
-                # Ensure container exists
-                container_client = self.blob_service_client.get_container_client(self.container_name)
-                if not container_client.exists():
+                # Ensure it looks like a connection string to prevent startup crashes
+                if "DefaultEndpointsProtocol=" in self.connection_string:
+                    self.blob_service_client = BlobServiceClient.from_connection_string(self.connection_string)
+                    # Ensure container exists
+                    container_client = self.blob_service_client.get_container_client(self.container_name)
+                    if not container_client.exists():
+                        container_client.create_container()
+                    logger.info("Azure Blob Storage connected successfully.")
+                else:
+                    logger.warning("AZURE_STORAGE_CONNECTION_STRING is not a valid connection string. Cloud storage disabled.")
+            except Exception as e:
+                logger.error(f"Failed to connect to Azure Blob Storage: {str(e)}")
                     container_client.create_container()
                 logger.info("Azure Blob Storage connected successfully.")
             except Exception as e:
