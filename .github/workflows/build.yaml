@@ -14,7 +14,7 @@ jobs:
       id-token: write          # Required for Azure OIDC
       security-events: write   # Required for Trivy SARIF uploads
       pull-requests: write     # Required for SonarCloud PR comments
-    uses: OrganiStation-org/shared-workflows/.github/workflows/reusable-ci.yaml@v2
+    uses: OrganiStation-org/shared-workflows/.github/workflows/reusable-ci.yaml@main
     with:
       image_name: ai-service
       sonar_project_key: organistation-ai
