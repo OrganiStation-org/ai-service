@@ -1,11 +1,17 @@
 import hashlib
 import os
+import logging
+from datetime import datetime
 from typing import Any, Dict, List
 
 import chromadb
 from chromadb import Documents, EmbeddingFunction, Embeddings
 from chromadb.utils.embedding_functions import DefaultEmbeddingFunction
 from pypdf import PdfReader
+from azure.storage.blob import BlobServiceClient
+
+logger = logging.getLogger("ai-service")
+logging.basicConfig(level=logging.INFO)
 
 
 class LocalEmbeddingFunction(EmbeddingFunction):

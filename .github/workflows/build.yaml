@@ -1,4 +1,4 @@
-name: AI Service CI Pipeline.
+name: AI Service CI Pipeline
 
 on:
   push:
