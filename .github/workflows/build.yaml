@@ -2,7 +2,7 @@ name: AI Service CI Pipeline
 
 on:
   push:
-    branches: [ develop, main ]
+    branches: [ develop ]
   pull_request:
     branches: [ main ]
 
@@ -15,7 +15,7 @@ jobs:
       pull-requests: write
     uses: OrganiStation-org/shared-workflows/.github/workflows/reusable-ci.yaml@main
     with:
-      image_name: ai-service
+      image_name: ai
       sonar_project_key: organistation-ai
       sonar_org: "organistation-org"
       language: "python"
