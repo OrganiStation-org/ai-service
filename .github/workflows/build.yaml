@@ -1,8 +1,8 @@
-name: Microservice CI Pipeline
+name: AI Service CI Pipeline
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ develop, main ]
   pull_request:
     branches: [ main ]
 
@@ -11,9 +11,13 @@ jobs:
     permissions:
       contents: read
       packages: write
+      id-token: write          # Required for Azure OIDC
+      security-events: write   # Required for Trivy SARIF uploads
+      pull-requests: write     # Required for SonarCloud PR comments
     uses: OrganiStation-org/shared-workflows/.github/workflows/reusable-ci.yaml@main
     with:
       image_name: ai-service
       sonar_project_key: organistation-ai
-      skip_linting: true
+      sonar_org: "organistation-org"
+      language: "python"       # Added to handle Snyk Python scans
     secrets: inherit
