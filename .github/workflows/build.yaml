@@ -19,4 +19,5 @@ jobs:
       image_name: ai-service
       sonar_project_key: organistation-ai
       sonar_org: "organistation-org"
+      language: "python"       # Added to handle Snyk Python scans
     secrets: inherit
