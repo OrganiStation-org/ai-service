@@ -51,10 +51,6 @@ class RAGPipeline:
                     logger.warning("AZURE_STORAGE_CONNECTION_STRING is not a valid connection string. Cloud storage disabled.")
             except Exception as e:
                 logger.error(f"Failed to connect to Azure Blob Storage: {str(e)}")
-                    container_client.create_container()
-                logger.info("Azure Blob Storage connected successfully.")
-            except Exception as e:
-                logger.error(f"Failed to connect to Azure Blob Storage: {str(e)}")
 
         self.embedding_fn = LocalEmbeddingFunction()
         self.chroma_client = chromadb.PersistentClient(path=db_path)
