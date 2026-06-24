@@ -7,7 +7,7 @@ from datetime import datetime
 from typing import List, Dict, Any
 
 import chromadb
-from chromadb.utils.embedding_functions import LocalEmbeddingFunction
+from chromadb.utils.embedding_functions import DefaultEmbeddingFunction
 from azure.storage.blob import BlobServiceClient
 from pypdf import PdfReader
 
@@ -42,7 +42,8 @@ class RAGPipeline:
             except Exception as e:
                 logger.error(f"Failed to connect to Azure Blob Storage: {str(e)}")
 
-        self.embedding_fn = LocalEmbeddingFunction()
+        self.embedding_model_name = "all-MiniLM-L6-v2"
+        self.embedding_fn = DefaultEmbeddingFunction()
         self.chroma_client = chromadb.PersistentClient(path=db_path)
         self.collection = self.chroma_client.get_or_create_collection(
             name="rag_documents",
