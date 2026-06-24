@@ -94,7 +94,7 @@ def health_check():
         "groq_configured": rag_pipeline.llm_provider == "groq",
         "llm_provider": rag_pipeline.llm_provider,
         "llm_model": rag_pipeline.llm_model_name,
-        "embedding_model": rag_pipeline.embedding_fn.model_name,
+        "embedding_model": rag_pipeline.embedding_model_name,
     }
 
 
