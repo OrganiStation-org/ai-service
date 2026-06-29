@@ -22,7 +22,7 @@ class RAGPipeline:
         
         if self.groq_api_key:
             self.llm_provider = "groq"
-            self.llm_model_name = "mixtral-8x7b-32768"
+            self.llm_model_name = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
 
         os.makedirs(db_path, exist_ok=True)
 
